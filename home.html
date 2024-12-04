@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Parking System - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .parking-slot {
+            display: inline-block;
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            background-color: #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .parking-slot.occupied {
+            background-color: #f44336;
+        }
+        .parking-slot.available {
+            background-color: #4CAF50;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #222;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Parking System</h1>
+        <p>Welcome to the E-Parking Management System</p>
+    </header>
+
+    <div class="container">
+        <h2>Select a Parking Slot</h2>
+
+        <div class="parking-slot available" onclick="reserveSlot(this)">
+            <p>Slot 1</p>
+        </div>
+        <div class="parking-slot occupied">
+            <p>Slot 2</p>
+        </div>
+        <div class="parking-slot available" onclick="reserveSlot(this)">
+            <p>Slot 3</p>
+        </div>
+        <div class="parking-slot available" onclick="reserveSlot(this)">
+            <p>Slot 4</p>
+        </div>
+
+        <p id="slot-status" style="margin-top: 20px;"></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 E-Parking System | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function reserveSlot(slot) {
+            if (slot.classList.contains("available")) {
+                slot.classList.remove("available");
+                slot.classList.add("occupied");
+                document.getElementById("slot-status").textContent = "You have successfully reserved this slot.";
+            } else {
+                document.getElementById("slot-status").textContent = "This slot is already occupied.";
+            }
+        }
+    </script>
+</body>
+</html>
