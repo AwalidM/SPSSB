@@ -1,4 +1,4 @@
-Features for Users
+Features for Users:
 - Reserve a Parking Spot
 - Cancel a Reservation
 - Check Real-Time Parking Space Availability
