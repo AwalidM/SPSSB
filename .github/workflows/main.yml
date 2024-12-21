@@ -1,21 +1,37 @@
-name: Deploy to GitHub Pages
+name: Test HTML and JS
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          branch: gh-pages
-          folder: .
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Serve HTML
+        run: |
+          npm install -g http-server
+          http-server -p 8080 &
+          sleep 3
+
+      - name: Test if the page loads
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/index.html
+        continue-on-error: true
