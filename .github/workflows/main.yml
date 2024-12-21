@@ -1,4 +1,4 @@
-name: Test All Files
+name: Test All Files with Python
 
 on:
   push:
@@ -16,18 +16,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check accessibility of all files on GitHub Pages
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requests
         run: |
-          BASE_URL="https://AwalidM.github.io/SPSSB"
-          
-          # Check accessibility for HTML files
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/index.html
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/home.html
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/login.html
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/signup.html
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/dashbord.html
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/slots.html
-          
-          # Check accessibility for JS files
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/auth.js
-          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/scripts.js
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run file accessibility test
+        run: |
+          python test.py 
