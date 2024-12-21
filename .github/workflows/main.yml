@@ -16,22 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
+      - name: Test if the HTML page loads (from GitHub Pages or direct URL)
         run: |
-          npm install
-
-      - name: Serve HTML
-        run: |
-          npm install -g http-server
-          http-server -p 8080 &
-          sleep 3
-
-      - name: Test if the page loads
-        run: |
-          curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/index.html
+          curl -s -o /dev/null -w "%{http_code}" https://<your-github-username>.github.io/<your-repository-name>/index.html
         continue-on-error: true
