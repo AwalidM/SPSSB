@@ -18,5 +18,5 @@ jobs:
 
       - name: Test if the HTML page loads (from GitHub Pages or direct URL)
         run: |
-          curl -s -o /dev/null -w "%{http_code}" https://<your-github-username>.github.io/<your-repository-name>/index.html
+          curl -s -o /dev/null -w "%{http_code}" https://<your-username>.github.io/<your-repository>/index.html
         continue-on-error: true
