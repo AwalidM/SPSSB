@@ -1,4 +1,4 @@
-name: Test Website
+name: Generate package.json and Install Dependencies
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-website:
+  setup-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,14 +18,13 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start local server
+      - name: Initialize package.json
         run: |
-          npm install -g serve
-          serve -s . &
-          sleep 5
+          npm init -y
 
-      - name: Run Lighthouse Tests
-        run: npx lhci autorun
+      - name: Add Dependencies
+        run: |
+          npm install express # Example dependency (replace with yours)
+
+      - name: Run Tests
+        run: npm test 
