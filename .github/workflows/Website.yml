@@ -1,0 +1,31 @@
+name: Test Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start local server
+        run: |
+          npm install -g serve
+          serve -s . &
+          sleep 5
+
+      - name: Run Lighthouse Tests
+        run: npx lhci autorun
