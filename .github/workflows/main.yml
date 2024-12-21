@@ -1,4 +1,4 @@
-name: Test HTML and JS
+name: Test All Files
 
 on:
   push:
@@ -16,7 +16,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Test if the HTML page loads (from GitHub Pages or direct URL)
+      - name: Check accessibility of all files on GitHub Pages
         run: |
-          curl -s -o /dev/null -w "%{http_code}" https://github.com/AwalidM/SPSSB
-        continue-on-error: true
+          BASE_URL="https://AwalidM.github.io/SPSSB"
+          
+          # Check accessibility for HTML files
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/index.html
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/home.html
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/login.html
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/signup.html
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/dashbord.html
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/slots.html
+          
+          # Check accessibility for JS files
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/auth.js
+          curl -s -o /dev/null -w "%{http_code}" $BASE_URL/scripts.js
