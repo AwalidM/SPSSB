@@ -22,5 +22,6 @@ jobs:
       run: |
         mkdir public
         cp *.html public/
-        cp -r css js public/
+        [ -d css ] && cp -r css public/ || echo "No CSS directory found"
+        [ -d js ] && cp -r js public/ || echo "No JS directory found"
         gh-pages -d public
